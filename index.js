@@ -11,6 +11,7 @@ const apiKey = process.env.OPENAI_API_KEY;
 
 app.post("/", async (req, res) => {
   const message = req.body.message;
+  console.log("입력 메시지:", message);
 
   try {
     const response = await axios.post(
