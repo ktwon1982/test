@@ -1,12 +1,12 @@
 const express = require("express");
 const axios = require("axios");
 const cors = require("cors");
-require("dotenv").config();
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
+// OPENAI_API_KEY를 환경변수에서 불러오고, 없으면 수동 입력값 사용
 const apiKey = process.env.OPENAI_API_KEY;
 
 app.post("/", async (req, res) => {
@@ -34,8 +34,8 @@ app.post("/", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT; // `|| 10000` 제거
-
+// Render는 PORT를 자동 할당함. 없을 경우 3000 포트 사용
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+  console.log(`✅ Server listening on port ${PORT}`);
 });
