@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   const message = req.body.message;
   console.log("💬 입력 메시지:", message);
+  console.log("✅ API Key 로드:", process.env.GROQ_API_KEY);
 
   try {
     const response = await axios.post(
