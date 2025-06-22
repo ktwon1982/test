@@ -34,7 +34,8 @@ app.post("/", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT; // `|| 10000` 제거
+
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
 });
