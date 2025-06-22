@@ -7,11 +7,16 @@ app.use(cors());
 app.use(express.json());
 
 // 🔐 OpenAI API 키 (보안을 위해 실제 서비스에선 .env 사용 권장)
-const OPENAI_API_KEY = "sk-여기에_당신의_API키_입력";
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
 // GET 요청 확인용
-app.get("/", (req, res) => {
-  res.send("✅ 서버 정상 작동 중 (GET /)");
+app.get("/env-check", (req, res) => {
+  const key = process.env.OPENAI_API_KEY;
+  if (!key) {
+    res.status(500).send("❌ API 키 없음");
+  } else {
+    res.send("✅ API 키 존재함 (앞 몇 글자): " + key.slice(0, 10));
+  }
 });
 
 // POST 요청 - GPT 호출
