@@ -24,7 +24,7 @@ app.post("/", async (req, res) => {
     const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "mixtral-8x7b-32768", // 또는 llama3-8b-8192
+        model: "llama3-8b-8192", // 또는 llama3-8b-8192
         messages: [{ role: "user", content: message }],
         temperature: 0.7,
         max_tokens: 512
