@@ -18,14 +18,16 @@ app.get("/", (req, res) => {
 app.post("/", async (req, res) => {
   const message = req.body.message;
   console.log("💬 입력 메시지:", message);
-  console.log("✅ API Key 로드:", process.env.GROQ_API_KEY);
+  console.log("✅ API Key 로드:", apiKey);
 
   try {
     const response = await axios.post(
       "https://api.groq.com/openai/v1/chat/completions",
       {
-        model: "mixtral-8x7b-32768",  // 또는 llama3-8b-8192, llama3-70b-8192
-        messages: [{ role: "user", content: message }]
+        model: "mixtral-8x7b-32768", // 또는 llama3-8b-8192
+        messages: [{ role: "user", content: message }],
+        temperature: 0.7,
+        max_tokens: 512
       },
       {
         headers: {
@@ -34,11 +36,12 @@ app.post("/", async (req, res) => {
         }
       }
     );
+
     const reply = response.data.choices[0].message.content;
     res.send(reply);
   } catch (error) {
-    console.error("❌ Groq 요청 실패:", error.message);
-    res.status(500).send("Groq 요청 실패: " + error.message);
+    console.error("❌ Groq 요청 실패:", error.response?.data || error.message);
+    res.status(500).send("Groq 요청 실패: " + JSON.stringify(error.response?.data || error.message));
   }
 });
 
